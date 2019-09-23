@@ -5,7 +5,7 @@ const db = require('../database');
 const limit = 10;
 
 router.get('/course', (req, res) => {
-    db.query('SELECT * from student limit ?', [limit], (error, rows, fields) => {
+    db.query('SELECT * from course limit ?', [limit], (error, rows, fields) => {
         if (!error) {
             res.json(rows);
         } else {
