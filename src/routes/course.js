@@ -5,7 +5,7 @@ const db = require('../database');
 const limit = 10;
 
 router.get('/course', (req, res) => {
-    db.query('SELECT * FROM course ORDER BY id_course ASC limit ?', [limit], (error, rows) => {
+    db.query('SELECT course.id_course, course.name, course.id_teacher, CONCAT(teacher.name,\' \',teacher.lastname) as teacher FROM course, teacher WHERE course.id_teacher = teacher.id_teacher ORDER BY course.id_course ASC limit ?', [limit], (error, rows) => {
         if (!error) {
             res.json(rows);
         } else {
@@ -19,7 +19,7 @@ router.get('/course/:id', (req, res) => {
         res.status(404).send({status: 'error', message: 'Invalid input'});
     } else {
         const {id} = req.params;
-        db.query('SELECT * FROM course WHERE id_course = ?', [id], (error, rows) => {
+        db.query('SELECT course.id_course, course.name, course.id_teacher, CONCAT(teacher.name,\' \',teacher.lastname) as teacher FROM course, teacher WHERE course.id_teacher = teacher.id_teacher and course.id_course = ?', [id], (error, rows) => {
             if (!error) {
                 res.json(rows);
             } else {

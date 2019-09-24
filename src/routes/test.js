@@ -5,7 +5,7 @@ const db = require('../database');
 const limit = 10;
 
 router.get('/test', (req, res) => {
-    db.query('SELECT * FROM test ORDER BY id_test ASC limit ?', [limit], (error, rows) => {
+    db.query('SELECT test.id_test, test.name, test.id_course, course.name as course  FROM test, course WHERE test.id_course = course.id_course ORDER BY test.id_test ASC limit ?', [limit], (error, rows) => {
         if (!error) {
             res.json(rows);
         } else {
@@ -19,7 +19,7 @@ router.get('/test/:id', (req, res) => {
         res.status(404).send({status: 'error', message: 'Invalid input'});
     } else {
         const {id} = req.params;
-        db.query('SELECT * FROM test WHERE id_test = ?', [id], (error, rows) => {
+        db.query('SELECT test.id_test, test.name, test.id_course, course.name as course  FROM test, course WHERE test.id_course = course.id_course and test.id_test = ?', [id], (error, rows) => {
             if (!error) {
                 res.json(rows);
             } else {
