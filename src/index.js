@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // Configuración
 app.set('port', 3000);
 app.use(express.json());
+app.use(cors());
 
 // Rutas
 app.use(require('./routes/course_student'));
