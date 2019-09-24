@@ -59,7 +59,11 @@ router.delete('/student/:id', (req, res) => {
                         if (!error) {
                             res.json({status: 'ok', message: 'Student deleted'});
                         } else {
-                            res.status(500).send({status: 'error', message: 'Error in delete'});
+                            if (error.errno === 1451) {
+                                res.status(400).send({status: 'error', message: 'Student has tests or courses'});
+                            } else {
+                                res.status(500).send({status: 'error', message: 'Error in delete'});
+                            }
                         }
                     });
                 }
