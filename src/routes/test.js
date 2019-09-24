@@ -14,6 +14,21 @@ router.get('/test', (req, res) => {
     });
 });
 
+router.get('/test/:id', (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.status(404).send({status: 'error', message: 'Invalid input'});
+    } else {
+        const {id} = req.params;
+        db.query('SELECT * FROM test WHERE id_test = ?', [id], (error, rows) => {
+            if (!error) {
+                res.json(rows);
+            } else {
+                res.status(500).send({status: 'error', message: 'Error in API'});
+            }
+        });
+    }
+});
+
 router.post('/test', (req, res) => {
     if (Object.keys(req.body).length > 0 && req.body.name && req.body.name !== ''
         && req.body.id_course && req.body.id_course !== '' && !isNaN(req.body.id_course)) {
