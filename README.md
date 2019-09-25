@@ -83,3 +83,6 @@ COMMIT;
 1. Clonar o descargar el repositorio https://github.com/tinytini12/api-ebconsulting.git
 2. En la carpeta descargada **api-ebconsulting**, ejecutar el comando **npm install**
 3. Ejecutar el comando **node src/index.js**
+
+### Adicionales:
+El diagrama de base de datos y las consultas SQL solicitadas se encuentran en la carpeta **Diagrama y script SQL** dentro de este repositorio
